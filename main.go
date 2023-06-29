@@ -26,4 +26,9 @@ func main(){
 	bot := slacker.NewClient(os.Getenv("SLACK_BOT_TOKEN"), os.Getenv("SLACK_APP_TOKEN"))
 
 	go printCommandEvents(bot.CommandEvents())
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	
 }
