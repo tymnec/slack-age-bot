@@ -6,6 +6,7 @@ import (
 	"github.com/shomali11/slacker"
 	"log"
 	"os"
+	"strconv"
 )
 
 func printCommandEvents(analyticsChannel <-chan *slacker.CommandEvent) {
@@ -26,6 +27,22 @@ func main() {
 	bot := slacker.NewClient(os.Getenv("SLACK_BOT_TOKEN"), os.Getenv("SLACK_APP_TOKEN"))
 
 	go printCommandEvents(bot.CommandEvents())
+
+	bot.Command("my yob is <year>", &slacker.CommandDefinition{
+		Description: "yob calculator",
+		Handler: func(bc slacker.BotContext, r slacker.Request, w slacker.ResponseWriter) {
+			year := r.Param("year")
+			yob, err := strconv.Atoi(year)
+
+			if err != nil {
+				println("error")
+			}
+
+			age := 2021 - yob
+			ra := fmt.Sprintf("age is %d", age)
+			w.Reply(ra)
+		},
+	})
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
