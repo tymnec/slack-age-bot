@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/shomali11/slacker"
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/shomali11/slacker"
 )
 
 func printCommandEvents(analyticsChannel <-chan *slacker.CommandEvent) {
@@ -38,7 +39,7 @@ func main() {
 				println("error")
 			}
 
-			age := 2021 - yob
+			age := 2023 - yob
 			ra := fmt.Sprintf("age is %d", age)
 			w.Reply(ra)
 		},
